@@ -7,7 +7,7 @@ import sys
 
 @click.command()
 @click.argument('starpath', type=click.Path(exists=True))
-@click.argument('out', type=click.Path)
+@click.argument('out', type=click.Path())
 @click.option('--write-mod', '-m', type=bool, default=False)
 @click.option('--sphere', '-sp', type=int, default=6)
 @click.option('--circle', '-ci', type=int, default=3)
