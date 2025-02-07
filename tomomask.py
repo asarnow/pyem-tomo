@@ -3,6 +3,8 @@ import click
 import numpy as np
 import mrcfile
 import sys
+
+from pyem.vop import resample_volume
 from pyem.vop.binary import binary_volume_opening
 from scipy.ndimage import distance_transform_edt
 from scipy.ndimage import label
@@ -15,7 +17,8 @@ from scipy.ndimage import find_objects
 @click.option("--extend", "-e", type=int, required=True)
 @click.option("--extend-z", "-ez", type=int)
 @click.option("--minvol", "-m", type=int)
-def main(inpfile, outfile, extend, extend_z, minvol):
+@click.option("--unbin", "-ub", type=int)
+def main(inpfile, outfile, extend, extend_z, minvol, unbin):
     with mrcfile.open(inpfile, permissive=True) as mrc:
         data = mrc.data
         psz = mrc.voxel_size.copy()
@@ -43,9 +46,11 @@ def main(inpfile, outfile, extend, extend_z, minvol):
         submask = ~submask
         submask[(dt <= extend)] = True
         newvol[sz, sy, sx] |= submask
+    if unbin is not None:
+        newvol = resample_volume(newvol, scale=unbin, output_shape=np.array(newvol.shape) * unbin, order=0)
     with mrcfile.new(outfile, overwrite=True) as mrc:
         mrc.set_data(newvol.astype(np.float16))
-        mrc.voxel_size = psz
+        mrc.voxel_size = psz / unbin
     return 0
 
 
