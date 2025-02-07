@@ -7,7 +7,7 @@ import sys
 
 
 @click.command()
-@click.argument('starpath', type=click.Path(exists=True), path_type=pathlib.Path)
+@click.argument('starpath', type=click.Path(exists=True, path_type=pathlib.Path))
 @click.argument('out', type=click.Path(path_type=pathlib.Path))
 @click.option('--write-mod', '-m', type=bool, default=False)
 @click.option('--sphere', '-sp', type=int, default=6)
