@@ -8,9 +8,9 @@ import sys
 @click.command()
 @click.argument('starpath', type=click.Path(exists=True))
 @click.argument('out', type=click.Path)
-@click.argument('--write-mod', '-m', type=bool)
-@click.argument('--sphere', '-sp', type=int, default=6)
-@click.argument('--circle', '-ci', type=int, default=3)
+@click.option('--write-mod', '-m', type=bool, default=False)
+@click.option('--sphere', '-sp', type=int, default=6)
+@click.option('--circle', '-ci', type=int, default=3)
 def main(starpath, out, write_mod, sphere, circle):
     star_tables = starfile.read(starpath, always_dict=True)
     df = star_tables['particles']
