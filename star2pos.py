@@ -23,7 +23,7 @@ def main(starpath, out, write_mod, sphere, circle):
         fn = out / f'{n}.pos'
         g.to_csv(fn, index=False, header=False, sep='\t')
         if write_mod:
-            subprocess.run(f'point2model -sc -sp {sphere} -ci {circle} {fn} {fn[:-4] + ".mod"}', shell=True)
+            subprocess.run(f'point2model -sc -sp {sphere} -ci {circle} {fn} {fn.with_suffix(".mod")}', shell=True)
 
 
 if __name__ == '__main__':
