@@ -4,6 +4,7 @@ import pathlib
 import starfile
 import subprocess
 import sys
+from pyem.star import Relion
 
 
 @click.command()
@@ -21,7 +22,7 @@ def main(starpath, out, write_mod, sphere, circle):
     gb = df.groupby(k)
     for n, g in gb:
         fn = out / f'{n}.pos'
-        g.to_csv(fn, index=False, header=False, sep='\t')
+        g[Relion.COORDS3D].to_csv(fn, index=False, header=False, sep='\t')
         if write_mod:
             subprocess.run(f'point2model -sc -sp {sphere} -ci {circle} {fn} {fn.with_suffix(".mod")}', shell=True)
 
