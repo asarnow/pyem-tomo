@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import click
+import pathlib
 import starfile
 import subprocess
 import sys
 
 
 @click.command()
-@click.argument('starpath', type=click.Path(exists=True))
-@click.argument('out', type=click.Path())
+@click.argument('starpath', type=click.Path(exists=True), path_type=pathlib.Path)
+@click.argument('out', type=click.Path(), path_type=pathlib.Path)
 @click.option('--write-mod', '-m', type=bool, default=False)
 @click.option('--sphere', '-sp', type=int, default=6)
 @click.option('--circle', '-ci', type=int, default=3)
