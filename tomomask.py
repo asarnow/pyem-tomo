@@ -3,7 +3,6 @@ import click
 import numpy as np
 import mrcfile
 import sys
-
 from pyem.vop import resample_volume
 from pyem.vop.binary import binary_volume_opening
 from scipy.ndimage import distance_transform_edt
