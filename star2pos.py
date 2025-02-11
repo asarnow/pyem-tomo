@@ -21,9 +21,9 @@ def main(starpath, out, write_mod, sphere, circle):
     elif starpath.suffix == '.txt':
         df = pd.read_csv(starpath, sep='\s+')
         df.rename(columns={'image_name': 'rlnTomoName',
-                            'coord_x': 'rlnCoordinateX',
-                            'coord_y': 'rlnCoordinateY',
-                            'coord_z': 'rlnCoordinateZ'},
+                            'x_coord': 'rlnCoordinateX',
+                            'y_coord': 'rlnCoordinateY',
+                            'z_coord': 'rlnCoordinateZ'},
                   inplace=True)
     else:
         return 1
