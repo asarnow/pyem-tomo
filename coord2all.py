@@ -25,6 +25,12 @@ def main(starpath, out, write_mod, sphere, circle):
                             'y_coord': 'rlnCoordinateY',
                             'z_coord': 'rlnCoordinateZ'},
                   inplace=True)
+        df[Relion.DETECTORPIXELSIZE] = 10.5408
+        df[Relion.MAGNIFICATION] = 10000
+        df[Relion.CS] = 2.7
+        df[Relion.VOLTAGE] = 300
+        df[Relion.AC] = 0.07
+        starfile.write(df, starpath.with_suffix('.star'))
     else:
         return 1
     for k in ['rlnTomoName', 'rlnMicrographName']:
