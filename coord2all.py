@@ -20,10 +20,11 @@ def main(starpath, out, write_mod, sphere, circle):
         df = star_tables['particles']
     elif starpath.suffix == '.txt':
         df = pd.read_csv(starpath, sep='\s+')
-        df.rename(columns={'image_name': 'rlnTomoName',
-                            'x_coord': 'rlnCoordinateX',
-                            'y_coord': 'rlnCoordinateY',
-                            'z_coord': 'rlnCoordinateZ'},
+        df.rename(columns={'image_name': Relion.TOMONAME,
+                            'x_coord': Relion.COORDX,
+                            'y_coord': Relion.COORDY,
+                            'z_coord': Relion.COORDZ,
+                            'score': Relion.AUTOPICKFIGUREOFMERIT},
                   inplace=True)
         df[Relion.DETECTORPIXELSIZE] = 10.5408
         df[Relion.MAGNIFICATION] = 10000
@@ -33,7 +34,7 @@ def main(starpath, out, write_mod, sphere, circle):
         starfile.write(df, starpath.with_suffix('.star'))
     else:
         return 1
-    for k in ['rlnTomoName', 'rlnMicrographName']:
+    for k in [Relion.TOMONAME, Relion.MICROGRAPH_NAME]:
         if k in df.columns:
             break
     gb = df.groupby(k)
